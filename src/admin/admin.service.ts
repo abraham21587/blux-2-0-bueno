@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IUsuario } from '../models/Usuario';
@@ -10,7 +14,7 @@ export class AdminService {
   constructor(
     @InjectModel('Usuario') private usuarioModel: Model<IUsuario>,
     @InjectModel('Contenido') private contenidoModel: Model<IContenido>,
-    @InjectModel('Favorito') private favoritoModel: Model<IFavorito>
+    @InjectModel('Favorito') private favoritoModel: Model<IFavorito>,
   ) {}
 
   private verificarAdmin(correoAdmin: string) {
@@ -20,12 +24,17 @@ export class AdminService {
 
   async getUsuarios(correoAdmin: string) {
     this.verificarAdmin(correoAdmin);
-    return this.usuarioModel.find({}, 'correo telefono rol createdAt').sort({ createdAt: -1 });
+    return this.usuarioModel
+      .find({}, 'correo telefono rol createdAt')
+      .sort({ createdAt: -1 });
   }
 
   async getUsuarioById(correoAdmin: string, id: string) {
     this.verificarAdmin(correoAdmin);
-    const usuario = await this.usuarioModel.findById(id, 'correo telefono rol createdAt');
+    const usuario = await this.usuarioModel.findById(
+      id,
+      'correo telefono rol createdAt',
+    );
     if (!usuario) throw new NotFoundException('Usuario no encontrado.');
     return usuario;
   }
@@ -37,7 +46,7 @@ export class AdminService {
     const user = await this.usuarioModel.findOneAndUpdate(
       { correo: correo?.toLowerCase() },
       { rol: nuevoRol },
-      { new: true }
+      { new: true },
     );
     if (!user) throw new NotFoundException('Usuario no encontrado.');
     return { mensaje: `Rol actualizado a ${nuevoRol}.`, usuario: user.correo };
@@ -63,10 +72,10 @@ export class AdminService {
     const [totalUsuarios, totalContenido, totalFavoritos] = await Promise.all([
       this.usuarioModel.countDocuments(),
       this.contenidoModel.countDocuments(),
-      this.favoritoModel.countDocuments()
+      this.favoritoModel.countDocuments(),
     ]);
     const porTipo = await this.contenidoModel.aggregate([
-      { $group: { _id: '$tipo', cantidad: { $sum: 1 } } }
+      { $group: { _id: '$tipo', cantidad: { $sum: 1 } } },
     ]);
     return { totalUsuarios, totalContenido, totalFavoritos, porTipo };
   }

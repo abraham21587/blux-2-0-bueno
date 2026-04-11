@@ -11,8 +11,8 @@ import { FavoritoSchema } from '../models/Favorito';
     MongooseModule.forFeature([
       { name: 'Usuario', schema: UsuarioSchema },
       { name: 'Contenido', schema: ContenidoSchema },
-      { name: 'Favorito', schema: FavoritoSchema }
-    ])
+      { name: 'Favorito', schema: FavoritoSchema },
+    ]),
   ],
   controllers: [AdminController],
   providers: [AdminService],
