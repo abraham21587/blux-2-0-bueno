@@ -9,7 +9,7 @@ export interface IFavorito extends Document {
   tipo?: string;
 }
 
-const FavoritoSchema = new Schema<IFavorito>(
+export const FavoritoSchema = new Schema<IFavorito>(
   {
     usuarioCorreo: { type: String, required: true, lowercase: true },
     contenidoId: { type: String, required: true },
