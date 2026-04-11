@@ -7,7 +7,7 @@ export interface IUsuario extends Document {
   rol: string;
 }
 
-const UsuarioSchema = new Schema<IUsuario>(
+export const UsuarioSchema = new Schema<IUsuario>(
   {
     correo: {
       type: String,

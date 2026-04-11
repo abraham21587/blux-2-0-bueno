@@ -6,8 +6,14 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('registrar')
-  registrar(@Body() body: { correo: string; password: string; telefono?: string }) {
-    return this.authService.registrar(body.correo, body.password, body.telefono);
+  registrar(
+    @Body() body: { correo: string; password: string; telefono?: string },
+  ) {
+    return this.authService.registrar(
+      body.correo,
+      body.password,
+      body.telefono,
+    );
   }
 
   @Post('login')
@@ -26,7 +32,13 @@ export class AuthController {
   }
 
   @Post('recuperar/cambiar')
-  cambiarContraseña(@Body() body: { correo: string; codigo: string; newPassword: string }) {
-    return this.authService.cambiarContraseña(body.correo, body.codigo, body.newPassword);
+  cambiarContraseña(
+    @Body() body: { correo: string; codigo: string; newPassword: string },
+  ) {
+    return this.authService.cambiarContraseña(
+      body.correo,
+      body.codigo,
+      body.newPassword,
+    );
   }
 }
