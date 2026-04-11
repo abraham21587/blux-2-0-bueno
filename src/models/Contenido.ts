@@ -13,7 +13,7 @@ export interface IContenido extends Document {
   rating?: number;
 }
 
-const ContenidoSchema = new Schema<IContenido>(
+export const ContenidoSchema = new Schema<IContenido>(
   {
     titulo: { type: String, required: true, trim: true },
     plataforma: { type: String, default: '' },
