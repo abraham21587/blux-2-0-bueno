@@ -8,7 +8,7 @@ export interface IPerfil extends Document {
   pin?: string;
 }
 
-const PerfilSchema = new Schema<IPerfil>(
+export const PerfilSchema = new Schema<IPerfil>(
   {
     nombre: { type: String, required: true, trim: true },
     avatarUrl: { type: String, default: 'https://i.pravatar.cc/150' },
