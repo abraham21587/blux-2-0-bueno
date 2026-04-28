@@ -12,7 +12,7 @@ import { AdminModule } from './admin/admin.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.MONGODB_URI_ATLAS || ''),
+    MongooseModule.forRoot(process.env.MONGODB_URI || ''),
     AuthModule,
     ContenidoModule,
     PerfilModule,
