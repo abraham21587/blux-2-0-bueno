@@ -9,11 +9,7 @@ export class AuthController {
   registrar(
     @Body() body: { correo: string; password: string; telefono?: string },
   ) {
-    return this.authService.registrar(
-      body.correo,
-      body.password,
-      body.telefono,
-    );
+    return this.authService.registrar(body.correo, body.password, body.telefono);
   }
 
   @Post('login')
@@ -35,10 +31,13 @@ export class AuthController {
   cambiarContraseña(
     @Body() body: { correo: string; codigo: string; newPassword: string },
   ) {
-    return this.authService.cambiarContraseña(
-      body.correo,
-      body.codigo,
-      body.newPassword,
-    );
+    return this.authService.cambiarContraseña(body.correo, body.codigo, body.newPassword);
+  }
+
+  @Post('recuperar/directo')
+  cambiarContraseñaDirecto(
+    @Body() body: { correo: string; newPassword: string },
+  ) {
+    return this.authService.cambiarContraseñaDirecto(body.correo, body.newPassword);
   }
 }

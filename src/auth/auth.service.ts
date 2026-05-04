@@ -82,4 +82,18 @@ export class AuthService {
     delete this.codigos[correo.toLowerCase()];
     return { mensaje: 'Contraseña actualizada exitosamente.' };
   }
+
+  async cambiarContraseñaDirecto(correo: string, newPassword: string) {
+    if (!correo || !newPassword)
+      throw new BadRequestException('Correo y nueva contraseña son obligatorios.');
+    if (newPassword.length < 8)
+      throw new BadRequestException('La contraseña debe tener al menos 8 caracteres.');
+    const user = await this.usuarioModel.findOne({
+      correo: correo.toLowerCase(),
+    });
+    if (!user) throw new NotFoundException('Correo no registrado.');
+    user.contraseña = newPassword;
+    await user.save();
+    return { mensaje: 'Contraseña actualizada exitosamente.' };
+  }
 }
